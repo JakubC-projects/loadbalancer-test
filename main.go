@@ -7,7 +7,9 @@ import (
 )
 
 var (
-	addr = ":80"
+	addr     = ":443"
+	certFile = "/etc/letsencrypt/live/xn-5r8h.pl/fullchain.pem"
+	keyFile  = "/etc/letsencrypt/live/xn-5r8h.pl/privkey.pem"
 )
 
 func main() {
@@ -16,7 +18,7 @@ func main() {
 		fmt.Fprintf(w, "hello world")
 	})
 
-	if err := http.ListenAndServe(addr, mux); err != nil {
+	if err := http.ListenAndServeTLS(addr, certFile, keyFile, mux); err != nil {
 		log.Fatal(err)
 	}
 }
